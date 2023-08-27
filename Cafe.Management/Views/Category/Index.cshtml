@@ -1,7 +1,19 @@
 ﻿@model List<Category>
-<h1>Category List</h1>
 
-<table class="table table-bordered table-striped">
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2>Category List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-primary" asp-action="Create" asp-controller="Category"><i class="bi bi-plus-circle"></i> Create New Category</a>
+        </div>
+    </div>
+</div>
+
+
+<table class="table table-bordered">
     <thead>
         <tr>
             <th>Id</th>
