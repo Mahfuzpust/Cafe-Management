@@ -16,5 +16,25 @@ namespace Cafe.Management.Controllers
             List<Category> objCategoryList = _db.Categories.ToList();
             return View(objCategoryList);
         }
+
+        //Create GET Method
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        //Crete POST Method
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Category category)
+        {
+            if(ModelState.IsValid)
+            {
+                _db.Categories.Add(category);
+                _db.SaveChanges();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(category);
+        }
     }
 }
