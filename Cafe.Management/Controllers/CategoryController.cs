@@ -33,6 +33,7 @@ namespace Cafe.Management.Controllers
             {
                 _db.Categories.Add(category);
                 _db.SaveChanges();
+                TempData["success"] = "Category Created Successfully";
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
@@ -62,6 +63,7 @@ namespace Cafe.Management.Controllers
             {
                 _db.Categories.Update(category);
                 _db.SaveChanges();
+                TempData["success"] = "Category Edited Successfully";
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
@@ -92,6 +94,7 @@ namespace Cafe.Management.Controllers
             {
                 _db.Categories.Remove(category);
                 _db.SaveChanges();
+                TempData["success"] = "Category Deleted Successfully";
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
