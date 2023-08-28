@@ -11,7 +11,7 @@ namespace Cafe.Management.Models
         [MaxLength(30)]
         public string Name { get; set; }
         [DisplayName("Display Name")]
-        [Range(0, 30)]
+        [Range(1,100, ErrorMessage="The dispaly order must be 1 to 100")]
         public int DisplayOrder { get; set; }
     }
 }

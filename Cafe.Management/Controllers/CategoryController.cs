@@ -1,4 +1,5 @@
 ﻿using Cafe.Management.Data;
+using Cafe.Management.Migrations;
 using Cafe.Management.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,6 +36,31 @@ namespace Cafe.Management.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(category);
+        }
+
+        //Edit GET Method
+        public IActionResult Edit(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Category category = _db.Categories.FirstOrDefault(c => c.Id == id);
+            if (category == null)
+            {
+                return NotFound();
+            }
+            return View(category);
+        }
+
+        //Edit POST Method
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(Category category)
+        {
+            _db.Categories.Update(category);
+            _db.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
     }
 }
