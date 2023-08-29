@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Cafe.Management.Migrations
+namespace Cafe.DataAccess.Migrations
 {
     /// <inheritdoc />
     public partial class CategoryDb : Migration

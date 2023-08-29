@@ -1,4 +1,4 @@
-namespace Cafe.Management.Models
+namespace Cafe.Models
 {
     public class ErrorViewModel
     {

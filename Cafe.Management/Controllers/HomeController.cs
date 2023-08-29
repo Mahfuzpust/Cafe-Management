@@ -1,4 +1,4 @@
-﻿using Cafe.Management.Models;
+﻿using Cafe.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

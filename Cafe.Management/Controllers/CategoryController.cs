@@ -1,6 +1,5 @@
-﻿using Cafe.Management.Data;
-using Cafe.Management.Migrations;
-using Cafe.Management.Models;
+﻿using Cafe.DataAccess.Data;
+using Cafe.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cafe.Management.Controllers
