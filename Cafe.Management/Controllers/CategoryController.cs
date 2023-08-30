@@ -7,14 +7,14 @@ namespace Cafe.Management.Controllers
 {
     public class CategoryController : Controller
     {
-        private readonly ICategoryRepository _categoryRepo;
-        public CategoryController(ICategoryRepository db)
+        private readonly IUnitOfWork _unitOfWork;
+        public CategoryController(IUnitOfWork unitOfWork)
         {
-            _categoryRepo = db;
+            _unitOfWork = unitOfWork;
         }
         public IActionResult Index()
         {
-            List<Category> objCategoryList = _categoryRepo.GetAll().ToList();
+            List<Category> objCategoryList = _unitOfWork.Category.GetAll().ToList();
             return View(objCategoryList);
         }
 
@@ -31,8 +31,8 @@ namespace Cafe.Management.Controllers
         {
             if(ModelState.IsValid)
             {
-                _categoryRepo.Add(category);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Add(category);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Created Successfully";
                 return RedirectToAction(nameof(Index));
             }
@@ -46,7 +46,7 @@ namespace Cafe.Management.Controllers
             {
                 return NotFound();
             }
-            Category category = _categoryRepo.Get(c => c.Id == id);
+            Category category = _unitOfWork.Category.Get(c => c.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -61,8 +61,8 @@ namespace Cafe.Management.Controllers
         {
             if (ModelState.IsValid)
             {
-                _categoryRepo.Update(category);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Update(category);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Edited Successfully";
                 return RedirectToAction(nameof(Index));
             }
@@ -76,7 +76,7 @@ namespace Cafe.Management.Controllers
             {
                 return NotFound();
             }
-            Category category = _categoryRepo.Get(u => u.Id == id);
+            Category category = _unitOfWork.Category.Get(u => u.Id == id);
             if(category == null)
             {
                 return NotFound();
@@ -92,8 +92,8 @@ namespace Cafe.Management.Controllers
         {
             if(ModelState.IsValid)
             {
-                _categoryRepo.Remove(category);
-                _categoryRepo.Save();
+                _unitOfWork.Category.Remove(category);
+                _unitOfWork.Save();
                 TempData["success"] = "Category Deleted Successfully";
                 return RedirectToAction(nameof(Index));
             }
