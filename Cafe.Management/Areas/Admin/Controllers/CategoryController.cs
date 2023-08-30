@@ -3,8 +3,9 @@ using Cafe.DataAccess.Repository.IRepository;
 using Cafe.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Cafe.Management.Controllers
+namespace Cafe.Management.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
@@ -29,7 +30,7 @@ namespace Cafe.Management.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Category category)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _unitOfWork.Category.Add(category);
                 _unitOfWork.Save();
@@ -72,12 +73,12 @@ namespace Cafe.Management.Controllers
         //Delete GET Method
         public IActionResult Delete(int? id)
         {
-            if(id == null || id == 0)
+            if (id == null || id == 0)
             {
                 return NotFound();
             }
             Category category = _unitOfWork.Category.Get(u => u.Id == id);
-            if(category == null)
+            if (category == null)
             {
                 return NotFound();
             }
@@ -90,7 +91,7 @@ namespace Cafe.Management.Controllers
         //[ActionName("Delete")]
         public IActionResult Delete(int? id, Category category)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _unitOfWork.Category.Remove(category);
                 _unitOfWork.Save();
