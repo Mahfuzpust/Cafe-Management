@@ -9,22 +9,17 @@ using System.Threading.Tasks;
 
 namespace Cafe.DataAccess.Repository
 {
-    public class UnitOfWork : IUnitOfWork
+    public class ProductRepository : Repository<Product>, IProductRepository
     {
         private readonly ApplicationDbContext _db;
-        public ICategoryRepository Category { get; private set; }
-
-        public IProductRepository Product { get; private set; }
-
-        public UnitOfWork(ApplicationDbContext db)
+        public ProductRepository(ApplicationDbContext db) : base(db)
         {
             _db = db;
-            Category = new CategoryRepository(_db);
-
         }
-        public void Save()
+
+        public void Update(Product obj)
         {
-            _db.SaveChanges();
+            _db.Products.Update(obj);
         }
     }
 }
