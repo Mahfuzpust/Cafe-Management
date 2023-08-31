@@ -35,7 +35,8 @@ namespace Cafe.DataAccess.Data
                      Price = 180,
                      Price50 = 160,
                      Price100 = 130,
-                     CategoryId = 1
+                     CategoryId = 1,
+                     ImageUrl = ""
                  },
                 new Product
                 {
@@ -48,7 +49,8 @@ namespace Cafe.DataAccess.Data
                     Price = 250,
                     Price50 = 220,
                     Price100 = 200,
-                    CategoryId = 2
+                    CategoryId = 2,
+                    ImageUrl = ""
                 },
                 new Product
                 {
@@ -61,7 +63,8 @@ namespace Cafe.DataAccess.Data
                     Price = 300,
                     Price50 = 280,
                     Price100 = 250,
-                    CategoryId = 3
+                    CategoryId = 3,
+                    ImageUrl = ""
                 }
                 );
         }
