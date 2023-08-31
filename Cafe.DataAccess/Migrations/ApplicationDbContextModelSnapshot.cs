@@ -70,6 +70,9 @@ namespace Cafe.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -100,12 +103,15 @@ namespace Cafe.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Products");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            CategoryId = 1,
                             Description = "A model may be static or dynamic. In a static model, a single variable is taken as a key element for calculating cost and time.",
                             FoodCode = "SWB012345698",
                             FoodName = "Pizza",
@@ -118,6 +124,7 @@ namespace Cafe.DataAccess.Migrations
                         new
                         {
                             Id = 2,
+                            CategoryId = 2,
                             Description = "A model may be static or dynamic. In a static model, a single variable is taken as a key element for calculating cost and time.",
                             FoodCode = "SWB012345698",
                             FoodName = "Pasta",
@@ -130,6 +137,7 @@ namespace Cafe.DataAccess.Migrations
                         new
                         {
                             Id = 3,
+                            CategoryId = 3,
                             Description = "A model may be static or dynamic. In a static model, a single variable is taken as a key element for calculating cost and time.",
                             FoodCode = "SWB012345698",
                             FoodName = "New Cabab",
@@ -139,6 +147,17 @@ namespace Cafe.DataAccess.Migrations
                             Price50 = 280.0,
                             Title = "Cabab"
                         });
+                });
+
+            modelBuilder.Entity("Cafe.Models.Product", b =>
+                {
+                    b.HasOne("Cafe.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
                 });
 #pragma warning restore 612, 618
         }
