@@ -20,7 +20,7 @@ namespace Cafe.DataAccess.Repository
 
         public void Update(Category obj)
         {
-            _db.Update(obj);
+            _db.Categories.Update(obj);
         }
     }
 }
