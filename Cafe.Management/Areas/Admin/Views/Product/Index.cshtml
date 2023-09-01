@@ -7,7 +7,7 @@
             <h2>Product List</h2>
         </div>
         <div class="col-6 text-end">
-            <a asp-action="Create" asp-controller="Product" class="btn btn-sm btn-primary" style="border-radius: 8px"><i class="bi bi-plus-circle"></i> Create New Product</a>
+            <a asp-action="Upsert" asp-controller="Product" class="btn btn-sm btn-primary" style="border-radius: 8px"><i class="bi bi-plus-circle"></i> Create New Product</a>
         </div>
     </div>
 </div>
@@ -42,7 +42,7 @@
                 <td>@data.CategoryId</td>
                 <td>
                     <div class="w-75 btn-group" role="group">
-                        <a asp-action="Edit" asp-controller="Product" asp-route-id="@data.Id" class="btn btn-sm btn-primary mx-2" style="border-radius:5px"><i class="bi bi-pencil-square"></i> Edit</a>
+                        <a asp-action="Upsert" asp-controller="Product" asp-route-id="@data.Id" class="btn btn-sm btn-primary mx-2" style="border-radius:5px"><i class="bi bi-pencil-square"></i> Edit</a>
                         <a asp-action="Delete" asp-controller="Product" asp-route-id="@data.Id" class="btn btn-sm btn-danger mx-2" style="border-radius:5px"><i class="bi bi-trash"></i> Delete</a>
                     </div>
                 </td>

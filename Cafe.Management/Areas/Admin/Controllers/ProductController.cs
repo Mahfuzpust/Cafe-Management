@@ -20,7 +20,7 @@ namespace Cafe.Management.Areas.Admin.Controllers
             return View(productList);
         }
         //Create GET Method
-        public IActionResult Create()
+        public IActionResult Upsert(int? id)
         {
             ProductVM productVM = new()
             {
@@ -31,13 +31,24 @@ namespace Cafe.Management.Areas.Admin.Controllers
                 }),
                 Product = new Product()
             };
-            return View(productVM);
+            
+            if(id == 0 || id == null)
+            {
+                //Create
+                return View(productVM);
+            }
+            else
+            {
+                //Update
+                productVM.Product = _unitOfWork.Product.Get(c => c.Id == id);
+                return View(productVM);
+            }
         }
 
         //Create POST Method
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(ProductVM productVM)
+        public IActionResult Upsert(ProductVM productVM, IFormFile? file)
         {
             if (ModelState.IsValid)
             {
@@ -58,35 +69,7 @@ namespace Cafe.Management.Areas.Admin.Controllers
             }
         }
 
-        //Edit GET Method
-        public IActionResult Edit(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Product product = _unitOfWork.Product.Get(c => c.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
-        }
-
-        //Edit POST Method
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Product.Update(product);
-                _unitOfWork.Save();
-                TempData["success"] = "Product Edited Successfully";
-                return RedirectToAction(nameof(Index));
-            }
-            return View(product);
-        }
+       
 
         //Delete GET Method
         public IActionResult Delete(int? id)
