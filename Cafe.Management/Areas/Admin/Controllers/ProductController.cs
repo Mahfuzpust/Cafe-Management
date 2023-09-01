@@ -1,5 +1,6 @@
 ﻿using Cafe.DataAccess.Repository.IRepository;
 using Cafe.Models;
+using Cafe.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -21,30 +22,40 @@ namespace Cafe.Management.Areas.Admin.Controllers
         //Create GET Method
         public IActionResult Create()
         {
-            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll()
-                .Select(u => new SelectListItem
+            ProductVM productVM = new()
             {
-                Text = u.Name,
-                Value = u.Id.ToString()
-            });
-            //ViewBag.CategoryList = CategoryList;
-            ViewData["CategoryList"] = CategoryList;
-            return View();
+                CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString(),
+                }),
+                Product = new Product()
+            };
+            return View(productVM);
         }
 
         //Create POST Method
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Product product)
+        public IActionResult Create(ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-                _unitOfWork.Product.Add(product);
+                _unitOfWork.Product.Add(productVM.Product);
                 _unitOfWork.Save();
                 TempData["success"] = "Product Created Successfully";
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            return View(product);
+
+            else
+            {
+                productVM.CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+                {
+                    Text = u.Name,
+                    Value = u.Id.ToString(),
+                });
+                return View(productVM);
+            }
         }
 
         //Edit GET Method
