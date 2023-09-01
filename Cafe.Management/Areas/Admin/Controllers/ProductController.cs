@@ -15,17 +15,19 @@ namespace Cafe.Management.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            List<Product> productList = _unitOfWork.Product.GetAll().ToList();
-            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
-            {
-                Text = u.Name,
-                Value=u.Id.ToString()
-            });
+            List<Product> productList = _unitOfWork.Product.GetAll().ToList();    
             return View(productList);
         }
         //Create GET Method
         public IActionResult Create()
         {
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll()
+                .Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value = u.Id.ToString()
+            });
+            ViewBag.CategoryList = CategoryList;
             return View();
         }
 
