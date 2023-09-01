@@ -1,6 +1,7 @@
 ﻿using Cafe.DataAccess.Repository.IRepository;
 using Cafe.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Cafe.Management.Areas.Admin.Controllers
 {
@@ -15,6 +16,11 @@ namespace Cafe.Management.Areas.Admin.Controllers
         public IActionResult Index()
         {
             List<Product> productList = _unitOfWork.Product.GetAll().ToList();
+            IEnumerable<SelectListItem> CategoryList = _unitOfWork.Category.GetAll().Select(u => new SelectListItem
+            {
+                Text = u.Name,
+                Value=u.Id.ToString()
+            });
             return View(productList);
         }
         //Create GET Method
