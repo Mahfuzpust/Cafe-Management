@@ -105,44 +105,38 @@ namespace Cafe.Management.Areas.Admin.Controllers
             }
         }
 
-       
-
-        //Delete GET Method
-        public IActionResult Delete(int? id)
-        {
-            if (id == null || id == 0)
-            {
-                return NotFound();
-            }
-            Product product = _unitOfWork.Product.Get(u => u.Id == id);
-            if (product == null)
-            {
-                return NotFound();
-            }
-            return View(product);
-        }
-
-        //Delete POST Method
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        //[ActionName("Delete")]
-        public IActionResult Delete(int? id, Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                _unitOfWork.Product.Remove(product);
-                _unitOfWork.Save();
-                TempData["success"] = "Product Deleted Successfully";
-                return RedirectToAction(nameof(Index));
-            }
-            return View(product);
-        }
-
+      
+        //Ajax Table Create
         [HttpGet]
         public IActionResult GetAll(int id)
         {
             List<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
             return Json(new { data = productList });
+        }
+
+        //Delete Product
+       
+        public IActionResult Delete(int id)
+        {
+            var producToBeDeleted = _unitOfWork.Product.Get(u => u.Id == id);
+            if (producToBeDeleted == null)
+            {
+                return Json(new { success = false, message = "Error While Detecting" });
+            }
+
+            var oldImagePath =
+                           Path.Combine(_webHostEnvironment.WebRootPath,
+                           producToBeDeleted.ImageUrl.TrimStart('\\'));
+
+            if (System.IO.File.Exists(oldImagePath))
+            {
+                System.IO.File.Delete(oldImagePath);
+            }
+
+            _unitOfWork.Product.Remove(producToBeDeleted);
+            _unitOfWork.Save();
+
+            return Json(new { success = true, message = "Delete Successfull" });
         }
     }
 }
