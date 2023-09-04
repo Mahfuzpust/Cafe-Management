@@ -137,5 +137,12 @@ namespace Cafe.Management.Areas.Admin.Controllers
             }
             return View(product);
         }
+
+        [HttpGet]
+        public IActionResult GetAll(int id)
+        {
+            List<Product> productList = _unitOfWork.Product.GetAll(includeProperties: "Category").ToList();
+            return Json(new { data = productList });
+        }
     }
 }
