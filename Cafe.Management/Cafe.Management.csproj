@@ -25,6 +25,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Cafe.DataAccess\Cafe.DataAccess.csproj" />
     <ProjectReference Include="..\Cafe.Models\Cafe.Models.csproj" />
+    <ProjectReference Include="..\Cafe.Utility\Cafe.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
