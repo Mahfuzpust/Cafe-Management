@@ -1,12 +1,16 @@
 ﻿using Cafe.DataAccess.Repository.IRepository;
 using Cafe.Models;
 using Cafe.Models.ViewModels;
+using Cafe.Utility;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Data;
 
 namespace Cafe.Management.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class ProductController : Controller
     {
         private readonly IWebHostEnvironment _webHostEnvironment;
