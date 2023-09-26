@@ -1,4 +1,4 @@
 # Cafe Management System
 
 ## Home page
-![](images/01.png)
+![](img/01.png)
